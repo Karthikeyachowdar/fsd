@@ -1,0 +1,59 @@
+&lt;html&gt;
+     &lt;style type=&quot;text/css&quot;&gt;
+         #i1 {background-color: lightgreen;color:brown;display:table}
+         #i2 {background-color: black;color:yellow;display:table}
+
+     &lt;/style&gt;
+     &lt;body&gt;
+             &lt;h1 id=&quot;i1&quot;&gt;Unordered list of fruits&lt;/h1&gt;
+             &lt;ul&gt;
+                 {% for fruit in fruits %}
+                 &lt;li&gt;{{ fruit }}&lt;/li&gt;
+                 {% endfor %}
+             &lt;/ul&gt;
+             &lt;h1 id=&quot;i2&quot;&gt;Ordered list of Students&lt;/h1&gt;
+             &lt;ol&gt;
+                {% for student in student_names %}
+                &lt;li&gt;{{ student }}&lt;/li&gt;
+                {% endfor %}
+             &lt;/ol&gt;
+     &lt;/body&gt;
+ &lt;/html&gt;
+views.py
+from django.shortcuts import render
+# Create your views here.
+def showlist(request):
+     fruits=[&quot;Mango&quot;,&quot;Apple&quot;,&quot;Banana&quot;,&quot;Jackfruits&quot;]
+     student_names=[&quot;Tony&quot;,&quot;Mony&quot;,&quot;Sony&quot;,&quot;Bob&quot;]
+     return
+render(request,&#39;showlist.html&#39;,{&quot;fruits&quot;:fruits,&quot;student_names&quot;:student_names}
+)
+urls.py
+from django.contrib import admin
+from django.urls import path
+from ap1.views import current_date_time,four_hours_ahead,four_hours_before
+from ap2.views import showlist
+urlpatterns = [
+    path(&#39;admin/&#39;, admin.site.urls),
+    path(&#39;cdt/&#39;, current_date_time ),
+    path(&#39;fhrsa/&#39;,four_hours_ahead),
+    path(&#39;fhrsb/&#39;,four_hours_before),
+    path(&#39;showlist/&#39;, showlist),
+]
+Lab/settings.py
+TEMPLATES = [
+    {
+        &#39;BACKEND&#39;: &#39;django.template.backends.django.DjangoTemplates&#39;,
+        &#39;DIRS&#39;: [os.path.join(BASE_DIR,&#39;ap2/templates&#39;),],
+
+        &#39;APP_DIRS&#39;: True,
+        &#39;OPTIONS&#39;: {
+            &#39;context_processors&#39;: [
+                &#39;django.template.context_processors.debug&#39;,
+                &#39;django.template.context_processors.request&#39;,
+                &#39;django.contrib.auth.context_processors.auth&#39;,
+                &#39;django.contrib.messages.context_processors.messages&#39;,
+            ],
+        },
+    },
+]
