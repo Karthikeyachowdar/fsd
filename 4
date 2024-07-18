@@ -1,0 +1,71 @@
+views.py
+from django.shortcuts import render
+
+def home(request):
+     return render(request,&#39;home.html&#39;)
+def aboutus(request):
+     return render(request,&#39;aboutus.html&#39;)
+def contactus(request):
+     return render(request,&#39;contactus.html&#39;)
+
+urls.py
+from django.urls import path
+from ap2.views import aboutus,home,contactus
+urlpatterns = [
+    path(&#39;aboutus/&#39;, aboutus),
+    path(&#39;home/&#39;, home),
+    path(&#39;contactus/&#39;, contactus),
+]
+
+Template files
+layout.html
+&lt;html&gt;
+     &lt;title&gt;{% block title %} {% endblock %} &lt;/title&gt;
+     &lt;style type=&quot;text/css&quot;&gt;
+        nav {background-color: lightblue;padding:10px}
+     &lt;/style&gt;
+     &lt;body&gt;
+        &lt;nav&gt;
+            &lt;a href=&quot;/home/&quot;&gt;Home&lt;/a&gt;|
+            &lt;a href=&quot;/aboutus/&quot;&gt;About Us&lt;/a&gt;|
+            &lt;a href=&quot;/contactus/&quot;&gt;Contact Us&lt;/a&gt;|
+
+        &lt;/nav&gt;
+        &lt;section&gt;
+            {% block content %}{% endblock %}
+        &lt;/section&gt;
+        &lt;footer&gt;
+            &lt;hr&gt;
+            &amp;copy; Developed by Sir MVIT, Bengaluru
+        &lt;/footer&gt;
+     &lt;/body&gt;
+&lt;/html&gt;
+
+home.html
+{% extends &#39;layout.html&#39; %}
+{% block title %}
+Home
+{% endblock %}
+{% block content %}
+&lt;h2&gt;This is the home page&lt;/h2&gt;
+{% endblock %}
+
+aboutus.html
+{% extends &#39;layout.html&#39; %}
+{% block title %}
+About Us
+{% endblock %}
+{% block content %}
+&lt;h2&gt;We are DJango developers&lt;/h2&gt;
+{% endblock %}
+
+contactus.html
+{% extends &#39;layout.html&#39; %}
+{% block title %}
+Contact us
+{% endblock %}
+{% block content %}
+&lt;h2&gt; phone: 9900556688 &lt;br&gt; Address: Sir
+MVIT,Bengaluru&lt;/h2&gt;
+
+{% endblock %}
